@@ -1,0 +1,36 @@
+// mission allow drone to go through a number of waypoints
+
+// note that the coordinates can be in int, floats (relative) or using
+// latitude and longitude.
+
+// mission should also allow optional adjustment of altitude.
+
+// mission construct should also extend sample templates
+// (like search and rescue) where the drone will hover at each waypoint
+// and execute terrain mapping pattern
+
+// user can also customize their own mission templates
+
+// instead of SearchAndRescue, there can be other scenario template like
+// - Delivery
+// - Surveillance
+// ...
+
+mission MyMission extend SearchAndRescue {
+
+  init (0, 0), // initial coordinates, where the drone takes off
+  waypoint (0, 10),
+  waypoint (10, 10),
+  waypoint (10, 0),
+  end (0, 0); // semi-colon indicate the end of the waypoint sequence. 
+
+  // a mission may consist of multiple waypoint sequences with customized functionality
+  // in between.
+}
+
+// property can include safety and liveness properties
+property MyMissionProperty {
+  // property that can quantify coordinates of the drone
+  assert [](drone.x >= 0) && (drone.x <= 10);
+  assert <>(drone.x == 0) && (drone.y == 0);
+}
